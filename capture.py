@@ -1,35 +1,34 @@
 import cv2
-from timeit import default_timer as timer
 import time
 
-video = cv2.VideoCapture(0)
+max_images = 3
+interval_minutes = 1
+filename_format = "timelapse_{}.png"
+camera_index = 0
 
-start = timer()
-print(start)
 
-a = 0
+def main():
+    video = cv2.VideoCapture(camera_index)
+    index = 0
 
-while True:
-    now = timer()
-    print(now)
+    while True:
+        if video.grab():
+            flag, frame = video.retrieve()
+            image = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
+            index = index + 1
+            filename = str.format(filename_format, index)
+            print(filename)
+            cv2.imwrite(filename, image)
 
-    if video.grab():
-        flag, frame = video.retrieve()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2BGRA)
-        a = a + 1
-        filename = str.format("timelapse_{}.png", a)
-        print(filename)
-        cv2.imwrite(filename, gray)
+        time.sleep(interval_minutes * 60)
 
-    time.sleep(1 * 60)
+        if index >= max_images:
+            break
 
-    #cv2.imshow("capture", gray)
+    video.release()
 
-    key = cv2.waitKey(1)
 
-    if key == ord('q'):
-        break
+main()
 
-video.release()
 
-cv2.destroyAllWindows()
+
