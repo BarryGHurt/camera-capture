@@ -4,7 +4,7 @@ import time
 max_images = 3
 interval_minutes = 1
 filename_format = "timelapse_{}.png"
-camera_index = 0
+camera_index = 1
 
 
 def main():
