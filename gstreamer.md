@@ -1,12 +1,15 @@
 
-# GStreamer for Me
+# GStreamer Settings
 
+A collection of gstreamer settings for my reference
 
-## Pi Cam for Nano td check this
+---
+
+## IMX219-160 8-Megapixel Camera (from Waveshare)
 
 gst-launch-1.0 nvarguscamerasrc ! 'video/x-raw(memory:NVMM),width=3264,height=2464,framerate=21/1' ! nvvidconv flip-method=0 ! video/x-raw,width=1920,height=1200 ! ximagesink
 
-## Logitech Cheap Ass Webcam
+## Logitech C270
 gst-launch-1.0 v4l2src device=/dev/video1 ! 'video/x-raw,format=YUY2,width=1280,height=960,pixel-aspect-ratio=1/1,framerate=15/2' ! videoconvert ! ximagesink
 
 ## HLSSINK (wip)
